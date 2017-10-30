@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_Finance_AcademicModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubjectCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="Semester" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Curriculum">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProgramId" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Document_Student">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="StudentId" Type="int" />
+    <Property Name="DocumentId" Type="int" />
+    <Property Name="CurriculumId" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="MarkComponent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Marks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SemesterId" Type="int" />
+    <Property Name="CourseId" Type="int" />
+    <Property Name="Mark" Type="float" />
+    <Property Name="Status" Type="int" />
+    <Property Name="StudentId" Type="int" />
+    <Property Name="SubjectMarkComponentId" Type="int" />
+  </EntityType>
+  <EntityType Name="Program">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RealSemester">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" />
+    <Property Name="StudentCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProgramId" Type="int" />
+    <Property Name="Gender" Type="bit" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Abbreviation" Type="nvarchar" MaxLength="50" />
+    <Property Name="Credits" Type="int" />
+    <Property Name="Code" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Subject_Curriculum">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="SubjectId" Type="int" />
+    <Property Name="CurriculumId" Type="int" />
+    <Property Name="TermNumber" Type="int" />
+  </EntityType>
+  <EntityType Name="Subject_MarkComponent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Percentage" Type="float" />
+    <Property Name="SubjectId" Type="int" />
+    <Property Name="MarkComponentId" Type="int" />
+    <Property Name="Name" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_Curriculum_Program">
+    <End Role="Program" Type="Self.Program" Multiplicity="0..1" />
+    <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Program">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Curriculum">
+        <PropertyRef Name="ProgramId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Document_Student_Curriculum">
+    <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="0..1" />
+    <End Role="Document_Student" Type="Self.Document_Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Curriculum">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Document_Student">
+        <PropertyRef Name="CurriculumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Document_Student_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="Document_Student" Type="Self.Document_Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Document_Student">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Marks_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+    <End Role="Marks" Type="Self.Marks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Marks">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Marks_RealSemester">
+    <End Role="RealSemester" Type="Self.RealSemester" Multiplicity="0..1" />
+    <End Role="Marks" Type="Self.Marks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RealSemester">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Marks">
+        <PropertyRef Name="SemesterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Marks_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="Marks" Type="Self.Marks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Marks">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Marks_Subject_MarkComponent">
+    <End Role="Subject_MarkComponent" Type="Self.Subject_MarkComponent" Multiplicity="0..1" />
+    <End Role="Marks" Type="Self.Marks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject_MarkComponent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Marks">
+        <PropertyRef Name="SubjectMarkComponentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_Program">
+    <End Role="Program" Type="Self.Program" Multiplicity="0..1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Program">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="ProgramId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subject_Curriculum_Curriculum">
+    <End Role="Curriculum" Type="Self.Curriculum" Multiplicity="0..1" />
+    <End Role="Subject_Curriculum" Type="Self.Subject_Curriculum" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Curriculum">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Subject_Curriculum">
+        <PropertyRef Name="CurriculumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subject_Curriculum_Subject">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+    <End Role="Subject_Curriculum" Type="Self.Subject_Curriculum" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Subject_Curriculum">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subject_MarkComponent_MarkComponent">
+    <End Role="MarkComponent" Type="Self.MarkComponent" Multiplicity="0..1" />
+    <End Role="Subject_MarkComponent" Type="Self.Subject_MarkComponent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MarkComponent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Subject_MarkComponent">
+        <PropertyRef Name="MarkComponentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subject_MarkComponent_Subject">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+    <End Role="Subject_MarkComponent" Type="Self.Subject_MarkComponent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Subject_MarkComponent">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_Finance_AcademicModelStoreContainer">
+    <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Curriculum" EntityType="Self.Curriculum" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Document_Student" EntityType="Self.Document_Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MarkComponent" EntityType="Self.MarkComponent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Marks" EntityType="Self.Marks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Program" EntityType="Self.Program" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RealSemester" EntityType="Self.RealSemester" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Subject_Curriculum" EntityType="Self.Subject_Curriculum" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Subject_MarkComponent" EntityType="Self.Subject_MarkComponent" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Curriculum_Program" Association="Self.FK_Curriculum_Program">
+      <End Role="Program" EntitySet="Program" />
+      <End Role="Curriculum" EntitySet="Curriculum" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Document_Student_Curriculum" Association="Self.FK_Document_Student_Curriculum">
+      <End Role="Curriculum" EntitySet="Curriculum" />
+      <End Role="Document_Student" EntitySet="Document_Student" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Document_Student_Student" Association="Self.FK_Document_Student_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Document_Student" EntitySet="Document_Student" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Marks_Course" Association="Self.FK_Marks_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Marks" EntitySet="Marks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Marks_RealSemester" Association="Self.FK_Marks_RealSemester">
+      <End Role="RealSemester" EntitySet="RealSemester" />
+      <End Role="Marks" EntitySet="Marks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Marks_Student" Association="Self.FK_Marks_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Marks" EntitySet="Marks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Marks_Subject_MarkComponent" Association="Self.FK_Marks_Subject_MarkComponent">
+      <End Role="Subject_MarkComponent" EntitySet="Subject_MarkComponent" />
+      <End Role="Marks" EntitySet="Marks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_Program" Association="Self.FK_Student_Program">
+      <End Role="Program" EntitySet="Program" />
+      <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subject_Curriculum_Curriculum" Association="Self.FK_Subject_Curriculum_Curriculum">
+      <End Role="Curriculum" EntitySet="Curriculum" />
+      <End Role="Subject_Curriculum" EntitySet="Subject_Curriculum" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subject_Curriculum_Subject" Association="Self.FK_Subject_Curriculum_Subject">
+      <End Role="Subject" EntitySet="Subject" />
+      <End Role="Subject_Curriculum" EntitySet="Subject_Curriculum" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subject_MarkComponent_MarkComponent" Association="Self.FK_Subject_MarkComponent_MarkComponent">
+      <End Role="MarkComponent" EntitySet="MarkComponent" />
+      <End Role="Subject_MarkComponent" EntitySet="Subject_MarkComponent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subject_MarkComponent_Subject" Association="Self.FK_Subject_MarkComponent_Subject">
+      <End Role="Subject" EntitySet="Subject" />
+      <End Role="Subject_MarkComponent" EntitySet="Subject_MarkComponent" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

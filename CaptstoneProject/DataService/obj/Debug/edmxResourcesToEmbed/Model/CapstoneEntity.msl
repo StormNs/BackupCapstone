@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_Finance_AcademicModelStoreContainer" CdmEntityContainer="DB_Finance_AcademicEntities">
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="DB_Finance_AcademicModel.Course">
+        <MappingFragment StoreEntitySet="Course">
+          <ScalarProperty Name="Semester" ColumnName="Semester" />
+          <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Curricula">
+      <EntityTypeMapping TypeName="DB_Finance_AcademicModel.Curriculum">
+        <MappingFragment StoreEntitySet="Curriculum">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Document_Student">
+      <EntityTypeMapping TypeName="DB_Finance_AcademicModel.Document_Student">
+        <MappingFragment StoreEntitySet="Document_Student">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CurriculumId" ColumnName="CurriculumId" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MarkComponents">
+      <EntityTypeMapping TypeName="DB_Finance_AcademicModel.MarkComponent">
+        <MappingFragment StoreEntitySet="MarkComponent">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Marks">
+      <EntityTypeMapping TypeName="DB_Finance_AcademicModel.Mark">
+        <MappingFragment StoreEntitySet="Marks">
+          <ScalarProperty Name="SubjectMarkComponentId" ColumnName="SubjectMarkComponentId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Mark1" ColumnName="Mark" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="SemesterId" ColumnName="SemesterId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Programs">
+      <EntityTypeMapping TypeName="DB_Finance_AcademicModel.Program">
+        <MappingFragment StoreEntitySet="Program">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RealSemesters">
+      <EntityTypeMapping TypeName="DB_Finance_AcademicModel.RealSemester">
+        <MappingFragment StoreEntitySet="RealSemester">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="DB_Finance_AcademicModel.Student">
+        <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+          <ScalarProperty Name="StudentCode" ColumnName="StudentCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subjects">
+      <EntityTypeMapping TypeName="DB_Finance_AcademicModel.Subject">
+        <MappingFragment StoreEntitySet="Subject">
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Credits" ColumnName="Credits" />
+          <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subject_Curriculum">
+      <EntityTypeMapping TypeName="DB_Finance_AcademicModel.Subject_Curriculum">
+        <MappingFragment StoreEntitySet="Subject_Curriculum">
+          <ScalarProperty Name="TermNumber" ColumnName="TermNumber" />
+          <ScalarProperty Name="CurriculumId" ColumnName="CurriculumId" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subject_MarkComponent">
+      <EntityTypeMapping TypeName="DB_Finance_AcademicModel.Subject_MarkComponent">
+        <MappingFragment StoreEntitySet="Subject_MarkComponent">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MarkComponentId" ColumnName="MarkComponentId" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
